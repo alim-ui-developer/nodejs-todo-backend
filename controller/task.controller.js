@@ -23,21 +23,17 @@ taskController.getTask = async (req, res) => {
 }
 
 taskController.updateTask = async (req, res) => {
-  try{
-    const { id } = req.params;
-    const { task, isComplete } = req.body;
-
-    const post = await Post.findById(id);
-  
-    // 수정
-    post.title = title;
-    post.description = description;
-    
-    await post.save();
-
-    res.status(200).json({ status: "success", data: Post});
-  } catch (err) {
-    res.status(400).json({ status: 'fail', error: err});
+  try {
+    const task = await Task.findById(req.params.id);
+    if (!task) {
+      throw new Error("App can not find the task");
+    }
+    const fields = Object.keys(req.body);
+    fields.map((item) => (task[item] = req.body[item]));
+    await task.save();
+    res.status(200).json({ status: "success", data: task });
+  } catch (error) {
+    res.status(400).json({ status: "fail", error });
   }
 }
 
