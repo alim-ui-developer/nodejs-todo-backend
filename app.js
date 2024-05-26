@@ -30,10 +30,12 @@ const indexRouter = require('./routes/index');
 require('dotenv').config();
 const app = express();
 const MONGODB_URI_PROD = process.env.MONGODB_URI_PROD;
+console.log("mongourl: ", MONGODB_URI_PROD);
 app.use(bodyParser.json());
 app.use(cors());
 app.use('/api', indexRouter);
-const mogoURI = MONGODB_URI_PROD;
+// const mogoURI = MONGODB_URI_PROD;
+const mogoURI = 'mongodb://localhost:2701//todo';
 
 // 몽고디비의 새로운 주소형태가 있다(옛날형식뿐만 아니라 요즘형식도 잘 도와달라는 의미)
 mongoose
@@ -50,3 +52,21 @@ mongoose
 app.listen(process.env.PORT || 5000, () => {
   console.log("server on 5000");
 });
+
+// 1. 회원가입
+// 유저가 이메일, 패스워드, 유저 이름을 입력해서 보냄.
+// 받은 정보를 저장함(데이터베이스 모델 필요)
+// 패스워드를 암호화 시켜서 저장
+
+
+// 1. 라우터
+// 2. 모델
+// 3. 데이터를 저장(이미 가입된 유저 유무, 패스워드 암호화)
+// 4. 응답을 보낸다.
+
+// 로그인
+// 이메일 패스워드를 입력해서 보냄
+// 데이터베이스에 해당 이메일과 패스워드를 가짅 유저가 있는지 확인한다.
+// 없으면 로그인 실패
+// 있다면 유저정보+토큰
+// 프론트에서는 이 정보를 저장

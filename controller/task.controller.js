@@ -39,13 +39,12 @@ taskController.updateTask = async (req, res) => {
 
 
 taskController.deleteTask = async (req, res) => {
-  try{
+  try {
     const deleteItem = await Task.findByIdAndDelete(req.params.id);
     res.status(200).json({ status: "success", data: deleteItem });
-  } catch (err) {
-    res.status(400).json({ status: 'fail', error: err});
+  } catch (error) {
+    res.status(400).json({ status: "fail", error });
   }
-}
-
+};
 
 module.exports = taskController;
