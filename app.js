@@ -30,16 +30,17 @@ const indexRouter = require('./routes/index');
 require('dotenv').config();
 const app = express();
 const MONGODB_URI_PROD = process.env.MONGODB_URI_PROD;
-console.log("mongourl: ", MONGODB_URI_PROD);
 app.use(bodyParser.json());
 app.use(cors());
 app.use('/api', indexRouter);
-// const mogoURI = MONGODB_URI_PROD;
-const mogoURI = 'mongodb://localhost:2701//todo';
+const mongoURI = MONGODB_URI_PROD;
+// const mongoURI = 'mongodb://localhost:27017/todo';
+// const mongoURI = 'mongodb://127.0.0.1:27017/todo';
+// const mongoURI = "mongodb://0.0.0.0:27017/todo";
 
 // 몽고디비의 새로운 주소형태가 있다(옛날형식뿐만 아니라 요즘형식도 잘 도와달라는 의미)
 mongoose
-.connect(mogoURI, {useNewUrlParser: true })
+.connect(mongoURI, {useNewUrlParser: true })
 .then(() => {
   console.log('mongoose connected!')
 })
